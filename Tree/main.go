@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -47,7 +48,14 @@ func main() {
 			allNodes[parent].Children = append(allNodes[parent].Children, allNodes[nodeId])
 		}
 
+		for _, node := range allNodes {
+			sort.Slice(node.Children, func(i, j int) bool {
+				return node.Children[i].ID < node.Children[j].ID
+			})
+		}
+
 		for _, child := range allNodes[-1].Children {
+			fmt.Println("")
 			makeLinks(child, "")
 		}
 	}
@@ -57,6 +65,7 @@ func makeLinks(node *Node, palka string) {
 	fmt.Println(node.Content)
 	for level, child := range node.Children {
 		palki := palka
+		fmt.Println(palki + "|")
 		fmt.Print(palki + "|--")
 		if level < len(node.Children)-1 {
 			palki += "|  "
