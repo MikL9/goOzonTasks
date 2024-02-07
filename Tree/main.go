@@ -21,6 +21,7 @@ func main() {
 	scanner.Scan()
 	t, _ := strconv.Atoi(scanner.Text())
 
+	firstPrintDone := false
 	for i := 0; i < t; i++ {
 		scanner.Scan()
 		n, _ := strconv.Atoi(scanner.Text())
@@ -55,7 +56,10 @@ func main() {
 		}
 
 		for _, child := range allNodes[-1].Children {
-			fmt.Println("")
+			if firstPrintDone {
+				fmt.Println("")
+			}
+			firstPrintDone = true
 			makeLinks(child, "")
 		}
 	}
